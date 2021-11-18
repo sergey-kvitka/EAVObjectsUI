@@ -13,7 +13,9 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     AppComponent,
     HomeComponent,
-    ObjectsComponent
+    ObjectsComponent,
+    ObjectTypeComponent,
+    ChildObjectTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,8 @@ import {FormsModule} from "@angular/forms";
     NgbModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
 
   ],
   providers: [],

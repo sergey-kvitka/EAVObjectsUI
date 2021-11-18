@@ -3,18 +3,55 @@
 @import "~font-awesome/css/font-awesome.css";
 
 .container {
-  margin-top: 5%;
+    margin-top: 5%;
 }
 
-.border{
-  padding: 10px;
+.border {
+    padding: 10px;
 }
-.btn{
-  margin-right: 10px;
+
+.btn {
+    margin-right: 10px;
 }
+
 .fa {
-  margin-right: 10px;
+    margin-right: 10px;
 }
-table .btn{
-  margin: 2px;
+
+table .btn {
+    margin: 2px;
+}
+
+.ml-20 {
+    margin-left: 30px;
+}
+
+.display-none {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.deny-select {
+    user-select: none;
+}
+
+.deny-select::selection {
+    background: transparent;
+}
+
+.deny-select::-moz-selection {
+    background: transparent;
+}
+
+#object_types_list {
+    font-size: 26px;
+    margin-top: 50px;
+    width: 25%;
+    overflow-x: auto;
+    padding-left: 0;
+
+
 }

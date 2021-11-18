@@ -1,0 +1,31 @@
+<div
+    *ngFor="let child of actualChildren" [className]="''"
+    style="
+    width: fit-content;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 2px 2px 2px 30px;
+  ">
+
+    <div>
+        <div [className]="'border cursor-pointer deny-select'"
+             style="
+         padding: 2px 6px;
+         width: fit-content;
+         white-space: nowrap;
+    ">
+            <i [classList]="'fa fa-plus'" id="icon_of_{{child.id}}" (click)="openChildren(child.id)"></i>
+            {{child.name}}
+
+        </div>
+    </div>
+
+    <app-test-component
+        class="display-none"
+        parentId="{{child.id}}"
+        id="children_of_{{child.id}}"
+    ></app-test-component>
+
+
+</div>
+

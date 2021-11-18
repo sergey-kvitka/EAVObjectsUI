@@ -1,87 +1,199 @@
 <div class="container">
-  <div class="border">
-    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
-      <i class="fa fa-database" style="margin-right: 1px"></i>
-      <i class="fa fa-plus"></i>Create new object
-    </button>
-  </div>
-  <table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Object type ID</th>
-      <th>Parent object ID</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let object of objects">
-      <td><span>
+    <div class="border">
+        <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+            <i class="fa fa-database" style="margin-right: 1px"></i>
+            <i class="fa fa-plus"></i>Create new object
+        </button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Object type ID</th>
+            <th>Parent object ID</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let object of objects">
+            <td><span>
           {{object.id}}
       </span></td>
-      <td><span>
+            <td><span>
           {{object.name}}
       </span></td>
-      <td><span>
+            <td><span>
           {{object.objectTypeId}}
       </span></td>
-      <td><span>
+            <td><span>
           {{object.parentObjectId == null ? '—' : object.parentObjectId}}
       </span></td>
-      <td>
-        <button class="btn btn-sm btn-info">
-          <i class="fa fa-search"></i>Details</button>
-        <button class="btn btn-sm btn-warning">
-          <i class="fa fa-edit"></i>Edit</button>
-        <button class="btn btn-sm btn-danger">
-          <i class="fa fa-remove"></i>Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+            <td>
+                <button class="btn btn-sm btn-info" (click)="openDetails(contentDetails, object)">
+                    <i class="fa fa-search"></i>Details
+                </button>
+                <button class="btn btn-sm btn-warning" (click)="openEdit(contentEdit, object)">
+                    <i class="fa fa-edit"></i>Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="openDelete(contentDelete, object)">
+                    <i class="fa fa-remove"></i>Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New object</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">New object</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
 
-      <div class="form-group">
-        <label for="name">Name*</label>
-        <div class="input-group">
-          <input id="name" name="name" class="form-control" ngModel>
+            <div class="form-group">
+                <label for="name">Name*</label>
+                <div class="input-group">
+                    <input id="name" name="name" class="form-control" ngModel>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="objectTypeId">Object type ID*</label>
+                <div class="input-group">
+                    <input id="objectTypeId" name="objectTypeId" class="form-control" ngModel>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="parentObjectId">Parent object ID</label>
+                <div class="input-group">
+                    <input id="parentObjectId" name="parentObjectId" class="form-control" ngModel>
+                </div>
+            </div>
+
+            <div class="border text-center">
+                <button data-dismiss="modal" class="btn btn-info">Create object</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+
+</ng-template>
+
+<ng-template #contentDetails let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title_">Object details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label>Name</label>
+                <div class="input-group">
+                    <input id="name_" name="name" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Object type ID</label>
+                <div class="input-group">
+                    <input id="object_type_id" name="objectTypeId" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Parent object ID</label>
+                <div class="input-group">
+                    <input id="parent_object_id" name="parentObjectId" class="form-control" readonly>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+
+</ng-template>
+
+<ng-template #contentEdit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title__">Edit object</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="editForm" novalidate>
+
+            <div class="form-group" style="display: none">
+                <label for="name">ID</label>
+                <div class="input-group">
+                    <input formControlName="id" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <div class="input-group">
+                    <input formControlName="name" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="objectTypeId">Object type ID</label>
+                <div class="input-group">
+                    <input formControlName="objectTypeId" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="parentObjectId">Parent object ID</label>
+                <div class="input-group">
+                    <input formControlName="parentObjectId" class="form-control">
+                </div>
+            </div>
+
+            <div class="border text-center">
+                <button data-dismiss="modal" class="btn btn-info" (click)="onSave()">Save changes</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm Delete</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h2>Are you sure you want to delete this object?</h2>
+        <div class="border text-center">
+            <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">Yes, Delete!</button>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="objectTypeId">Object type ID*</label>
-        <div class="input-group">
-          <input id="objectTypeId" name="objectTypeId" class="form-control" ngModel>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="parentObjectId">Parent object ID</label>
-        <div class="input-group">
-          <input id="parentObjectId" name="parentObjectId" class="form-control" ngModel>
-        </div>
-      </div>
-
-      <div class="border text-center">
-        <button data-dismiss="modal" class="btn btn-info">Submit</button>
-      </div>
-
-    </form>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-  </div>
-
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+    </div>
 </ng-template>
