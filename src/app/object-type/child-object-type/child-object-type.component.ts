@@ -1,15 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ObjectType} from "../object-type.component";
 
 @Component({
-    selector: 'app-test-component',
+    selector: 'app-child-object-type',
     templateUrl: './child-object-type.component.html',
     styleUrls: ['./child-object-type.component.css']
 })
+
 export class ChildObjectTypeComponent implements OnInit {
     @Input() parentId: any
     @Input() actualChildren: any
+    @Output() currentObjectTypeId = new EventEmitter()
 
     constructor(
         private httpClient: HttpClient
@@ -22,11 +24,14 @@ export class ChildObjectTypeComponent implements OnInit {
         });
     }
 
+    emitObjectTypeId(id: number) {
+        this.currentObjectTypeId.emit(id);
+    }
+
     getObjectTypesByParentId(parentId: any) {
         return this.httpClient.get<ObjectType[]>
         ("http://localhost:8080/object_types/getChildrenByParentId/" + parentId);
     }
-
 
     openChildren(id: any) {
         let icon = document.getElementById('icon_of_' + id);

@@ -1,31 +1,30 @@
 <div
-    *ngFor="let child of actualChildren" [className]="''"
-    style="
-    width: fit-content;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    margin: 2px 2px 2px 30px;
-  ">
+    *ngFor="let child of actualChildren" [classList]="'obj-type-list-block'"
+>
 
     <div>
-        <div [className]="'border cursor-pointer deny-select'"
-             style="
-         padding: 2px 6px;
-         width: fit-content;
-         white-space: nowrap;
-    ">
-            <i [classList]="'fa fa-plus'" id="icon_of_{{child.id}}" (click)="openChildren(child.id)"></i>
-            {{child.name}}
+        <div [classList]="'border deny-select obj-type-list-header'">
+            <i [classList]="'fa fa-plus cursor-pointer'"
+               id="icon_of_{{child.id}}"
+               (click)="openChildren(child.id)"
+               style="padding: 2px"
+            ></i>
+            <p
+                [classList]="'cursor-pointer'"
+                (click)="emitObjectTypeId(child.id)"
+                style="margin: 0"
+            >
+                {{child.name}}
+            </p>
 
         </div>
     </div>
 
-    <app-test-component
+    <app-child-object-type
         class="display-none"
         parentId="{{child.id}}"
         id="children_of_{{child.id}}"
-    ></app-test-component>
-
-
+        (currentObjectTypeId)="this.emitObjectTypeId($event)"
+    ></app-child-object-type>
 </div>
 

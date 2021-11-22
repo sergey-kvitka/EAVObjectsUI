@@ -2,16 +2,23 @@
     margin: auto 70px;
     width: auto;
     max-width: none;
-  ">
+">
 
-    <div id="object_types_list" [classList]="'border border-dark'">
+    <div>
 
-        <app-test-component
-            parentId="null"
-        >
-        </app-test-component>
+        <div id="object_types_list"
+            [classList]="'border border-dark'"
+            >
+            <app-child-object-type
+                parentId="null"
+                (currentObjectTypeId)="this.setCurrentObjectTypeId($event)"
+            ></app-child-object-type>
+        </div>
 
     </div>
 
-
 </div>
+
+<app-attribute
+    objectTypeId = {{currentObjectTypeId}};
+></app-attribute>
