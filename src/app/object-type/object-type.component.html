@@ -1,24 +1,59 @@
-<div class="container" style="
+<div [classList]="'container obj-type-comp-container'" style="
     margin: auto 70px;
     width: auto;
     max-width: none;
 ">
+        <div [classList]="'obj-type-list-with-but border border-dark'">
+            <div id="object_types_list">
+                <app-child-object-type
+                    parentId = 'null'
+                    (currentObjectTypeId)="setCurrentObjectTypeId($event)"
+                    varToUpdate="{{varToUpdate}}"
+                ></app-child-object-type>
+            </div>
 
-    <div>
-
-        <div id="object_types_list"
-            [classList]="'border border-dark'"
+            <button class="btn btn-md btn-outline-primary" style="margin: 15px;"
+                    (click)="open(content)"
             >
-            <app-child-object-type
-                parentId="null"
-                (currentObjectTypeId)="this.setCurrentObjectTypeId($event)"
-            ></app-child-object-type>
+                <i class="fa fa-database" style="margin-right: 1px"></i>
+                <i class="fa fa-plus"></i>Create new object type
+            </button>
         </div>
 
+    <div [classList]="'attributes-table-comp'">
+        <app-attribute
+            objectTypeId = {{currentObjectTypeId}}
+        ></app-attribute>
     </div>
 
 </div>
 
-<app-attribute
-    objectTypeId = {{currentObjectTypeId}};
-></app-attribute>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">New object type</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <div class="input-group">
+                    <input id="name" name="name" class="form-control" ngModel>
+                </div>
+            </div>
+
+            <div class="border text-center">
+                <button data-dismiss="modal" class="btn btn-info">Create object type</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+
+</ng-template>

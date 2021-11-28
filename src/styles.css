@@ -47,11 +47,9 @@ table .btn {
 }
 
 #object_types_list {
-    font-size: 26px;
-    margin-top: 50px;
-    width: 25%;
+    font-size: 24px;
     overflow-x: auto;
-    padding-left: 0;
+    padding: 15px 0;
 }
 
 .obj-type-list-header {
@@ -63,9 +61,41 @@ table .btn {
     align-items: center;
 }
 
+.obj-type-list-header p:hover {
+    color: blue;
+}
+
 .obj-type-list-block {
     width: fit-content;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
     margin: 2px 2px 2px 30px;
+}
+
+.obj-type-comp-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 50px;
+    justify-content: space-around;
+}
+
+.attributes-table-comp {
+    width: 60%;
+}
+
+.icon-obj-type-header {
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 20px;
+}
+
+.icon-obj-type-header:hover {
+    color: blue;
+}
+
+.obj-type-list-with-but {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 0;
 }

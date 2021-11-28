@@ -4,27 +4,136 @@
 
     <div>
         <div [classList]="'border deny-select obj-type-list-header'">
-            <i [classList]="'fa fa-plus cursor-pointer'"
+            <i [classList]="'fa fa-minus icon-obj-type-header'"
                id="icon_of_{{child.id}}"
                (click)="openChildren(child.id)"
-               style="padding: 2px"
+               title="Показать/скрыть потомков"
             ></i>
             <p
                 [classList]="'cursor-pointer'"
                 (click)="emitObjectTypeId(child.id)"
-                style="margin: 0"
+                style="margin: 0 8px 0 5px; padding-right: 8px; border-right: 1px solid    black"
+                title="Открыть атрибуты"
             >
                 {{child.name}}
             </p>
+            <i [classList]="'fa fa-plus icon-obj-type-header'"
+               title="Создать потомка" (click)="open(content)"
 
+            ></i>
+            <i [classList]="'fa fa-edit icon-obj-type-header'"
+               title="Изменить название" (click)="openEdit(contentEdit, child)"
+
+            ></i>
+            <i [classList]="'fa fa-trash icon-obj-type-header'"
+               title="Удалить вместе с потомками" (click)="openDelete(contentDelete, child)"
+
+            ></i>
         </div>
     </div>
 
     <app-child-object-type
-        class="display-none"
         parentId="{{child.id}}"
         id="children_of_{{child.id}}"
-        (currentObjectTypeId)="this.emitObjectTypeId($event)"
+        (currentObjectTypeId)="emitObjectTypeId($event)"
     ></app-child-object-type>
+
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">New object type</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #f="ngForm" (ngSubmit)="onSubmit(f, child.id)" novalidate>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <div class="input-group">
+                        <input id="name" name="name" class="form-control" ngModel>
+                    </div>
+                </div>
+
+                <div class="border text-center">
+                    <button data-dismiss="modal" class="btn btn-info">Create object type</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+        </div>
+
+    </ng-template>
+
+    <ng-template #contentEdit let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title__">Edit object type</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="editForm" novalidate>
+
+                <div class="form-group" [classList]="'display-none'">
+                    <label>ID</label>
+                    <div class="input-group">
+                        <input formControlName="id" class="form-control" [readOnly]="true">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <div class="input-group">
+                        <input formControlName="name" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group" [classList]="'display-none'">
+                    <label>Parent object type ID</label>
+                    <div class="input-group">
+                        <input formControlName="parentObjectTypeId" class="form-control" [readOnly]="true">
+                    </div>
+                </div>
+
+                <div class="border text-center">
+                    <button data-dismiss="modal" class="btn btn-info" (click)="onSave()">Save changes</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+        </div>
+    </ng-template>
+
+    <ng-template #contentDelete let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Confirm Delete</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h2>Are you sure you want to delete this object type and all its children?</h2>
+            <div class="border text-center">
+                <button
+                    data-dismiss="modal"
+                    class="btn btn-danger"
+                    (click)="onDelete()">
+                    Yes, Delete!
+                </button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+        </div>
+    </ng-template>
+
 </div>
 
